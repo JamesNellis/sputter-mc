@@ -1,1 +1,1 @@
-text goes here
+![](figs/fig.png)
