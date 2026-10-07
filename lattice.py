@@ -1,9 +1,11 @@
 import numpy as np
 
 class Lattice:
-    def __init__(self, size, seed):
+    def __init__(self, size, seed, spacing=(1.0, 1.0)):
+    # spacing is for non-squre rectangles. spacing=(row spacing, col spacing)
         self.size = size
         self.seed = seed
+        self.spacing = spacing
         self.damage = np.zeros((size, size), dtype=int)
         self.rng = np.random.default_rng(seed)
         self.n_ions = 0
@@ -27,7 +29,13 @@ class Lattice:
             (row, (col + 1) % self.size),
         ]
 
-    def sputter_one_ion(self, extra_atoms_choices=(0, 1, 2)):
+    def neighbor_weights(self):
+        # closer neighbors are likelier to be knocked out, consdiers spacing
+        sy, sx = self.spacing
+        w = np.array([1/sy, 1/sy, 1/sx, 1/sx]) # order matches neighbors()
+        return w / w.sum()
+
+    def sputter_one_ion(self, extra_atoms_choices=(0, )):
     # removes an atom from the one random cell, then also removes an atom 
         # from n_extra_atoms neighbors, n_extra_atoms being a random choice of extra_atoms_choices
         cell = self.random_cell()
@@ -35,7 +43,8 @@ class Lattice:
         n_extra_atoms = self.rng.choice(extra_atoms_choices)
         if n_extra_atoms > 0:
             neighbor_list = self.neighbors(cell)
-            indices = self.rng.choice(4, size=n_extra_atoms, replace=False)
+            indices = self.rng.choice(len(neighbor_list), size=n_extra_atoms, replace=False, p=self.neighbor_weights()) # p is numpy's weights, so we wesight by 1/distance
+
             for idx in indices:
                 self.remove_atom(neighbor_list[idx])
         self.n_ions += 1

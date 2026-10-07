@@ -9,8 +9,8 @@ damaged_fractions = []
 intensities = {r: [] for r in r_values}
 
 
-total_sputters = 20000
-points = 30
+total_sputters = 5000
+points = 15
 
 for i in range(points):
     for _ in range(total_sputters // points):
@@ -19,7 +19,7 @@ for i in range(points):
     # x axis
     damaged_fractions.append(1 - lattice.clean_fraction)
     # eg [.8, .4, .2] - fractions for each r
-    fracs = patch_fraction(lattice.damage, r_values)
+    fracs = patch_fraction(lattice.damage, r_values, lattice.spacing)
     for r, f in zip(r_values, fracs):
         intensities[r].append(f)
 
