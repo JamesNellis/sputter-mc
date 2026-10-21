@@ -35,7 +35,7 @@ class Lattice:
         w = np.array([1/sy, 1/sy, 1/sx, 1/sx]) # order matches neighbors()
         return w / w.sum()
 
-    def sputter_one_ion(self, extra_atoms_choices=(0, )):
+    def sputter_one_ion(self, extra_atoms_choices=(0, 1, 2)):
     # removes an atom from the one random cell, then also removes an atom 
         # from n_extra_atoms neighbors, n_extra_atoms being a random choice of extra_atoms_choices
         cell = self.random_cell()
@@ -49,6 +49,11 @@ class Lattice:
                 self.remove_atom(neighbor_list[idx])
         self.n_ions += 1
 
+
+    @property
+    def theta(self):
+        # atoms removed per surface site, in monolayers (Young's "ML Removed")
+        return self.damage.sum() / self.size**2
 
     @property
     def clean_fraction(self):
