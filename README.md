@@ -1,2 +1,1 @@
-![](figs/fig.png)
-![](figs/fig_spacing_compare.png)
+![ion sputtering git](figs/sputter.gif)
