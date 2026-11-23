@@ -5,7 +5,7 @@ A Monte Carlo simulation tracking how clean patches of Ni(110) shrink while cont
 ### Model
  - **Lattice**: A rectangular, periodic grid of cells, one atom each, is constructed using NumPy. Ni(110) has a unit cell of $a \times a/\sqrt{2}$.
  - **Damage**: Each ion strikes a random cell, and removes one atom from it, as well as one from 0, 1, or 2 neighbors, with closer neighbors being more likely to be selected.
- - **Analysis**: For each undamaged site, find the largest possible circle around it containing no damage. Then, compute f(theta, r), the fraction of the surface centering a clean circle of radius r.
+ - **Analysis**: For each undamaged site, find the largest possible circle around it containing no damage. Then, find f(theta, r), the fraction of the surface centering a clean circle of radius r.
 
 ### Usage
 
@@ -14,7 +14,7 @@ python3 run.py       # simulate, and plot f(theta, r) to figs/run.png
 python3 animate.py   # runs simulation, saves a gif like the one above to figs/sputter.gif
 python3 comp.py      # runs simulation, plots and overlays vs Young' data
 ```
-Parameters like (lattice size, seed, spacing, radii, how long to sputter) are constants at the top of the file
+Parameters like lattice size, seed, spacing, radii, how long to sputter are defined at the top of the file
 
 In `run.py`:
 ```python
