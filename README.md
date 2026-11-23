@@ -26,8 +26,8 @@ SPACING = (1.0, 1.0)
 ```
 
 ### Result
-I reproduced Young's results, and did so much more efficiently than his original Mathematica implementation (in large part due to better tools). A 400x400 lattice run took 5 hours with his, while a 1000x1000 run with this python implementation takes ~10 seconds.
+I reproduced Young's results, and did so much more efficiently than his original Mathematica implementation (in large part due to better tools).
 
 ![sim vs Young's data](figs/compare_adj5.png)
 
-You can see that the lines follow the circles in the above plot.
+You can see that the lines follow the circles in the above plot, after scale adjustment.
